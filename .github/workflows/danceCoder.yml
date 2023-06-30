@@ -10,11 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Dance Robot
+      - name: Run Dance Robot
         run: |
-          const dancingRobot = `
-            \\o/\\o/\\o/
-            |       |
-           / \\     / \\
-          `;
-          console.log(dancingRobot);
+          node dancing-robot.js
