@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { Octokit } = require('@octokit/rest');
 
 async function run() {
   try {
@@ -10,16 +11,14 @@ async function run() {
     const joke = response.data.joke;
 
     // Post the dad joke as a comment on the pull request
-    const octokit = require('@octokit/rest')();
-    octokit.authenticate({
-      type: 'token',
-      token: process.env.GITHUB_TOKEN,
+    const octokit = new Octokit({
+      auth: process.env.GITHUB_TOKEN,
     });
 
     const context = JSON.parse(process.env.GITHUB_CONTEXT);
     const { owner, repo, number } = context.issue;
 
-    await octokit.issues.createComment({
+    await octokit.rest.issues.createComment({
       owner,
       repo,
       issue_number: number,
