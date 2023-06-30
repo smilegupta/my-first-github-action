@@ -15,13 +15,12 @@ async function run() {
       auth: process.env.GITHUB_TOKEN,
     });
 
-    const { context } = JSON.parse(process.env.GITHUB_CONTEXT);
-    const { owner, repo, number } = context.payload.repository;
+    const { owner, repo, pull_number } = context.issue;
 
     await octokit.rest.issues.createComment({
       owner,
       repo,
-      issue_number: number,
+      issue_number: pull_number,
       body: `👨‍👧‍👦 **Dad Joke of the Day** 👨‍👧‍👦\n\n${joke}`,
     });
 
