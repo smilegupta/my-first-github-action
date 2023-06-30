@@ -11,5 +11,5 @@ function getPreferences (key) {
 }
 
 export const enableShopifyTaxes = () => {
-  getPreferences('experiments.1cc_enable_shopify_taxes') === 'test'
+  return getPreferences('experiments.1cc_enable_shopify_taxes') === 'test'
 }
