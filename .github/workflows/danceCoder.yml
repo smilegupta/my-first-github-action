@@ -1,9 +1,6 @@
 name: Dance Robot
 
-on:
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
   dance-robot:
