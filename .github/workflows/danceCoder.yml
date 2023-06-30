@@ -12,4 +12,4 @@ jobs:
 
       - name: Run Dance Robot
         run: |
-          node dancing-robot.js
+          node .github/workflows/dancing-robot.js
