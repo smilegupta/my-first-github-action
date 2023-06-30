@@ -15,8 +15,8 @@ async function run() {
       auth: process.env.GITHUB_TOKEN,
     });
 
-    const context = JSON.parse(process.env.GITHUB_CONTEXT);
-    const { owner, repo, number } = context.issue;
+    const { context } = JSON.parse(process.env.GITHUB_CONTEXT);
+    const { owner, repo, number } = context.payload.repository;
 
     await octokit.rest.issues.createComment({
       owner,
