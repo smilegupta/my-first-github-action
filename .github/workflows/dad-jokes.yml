@@ -17,10 +17,25 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install axios @octokit/rest
+        run: npm install axios
 
       - name: Run Dad Jokes Action
-        run: node .github/actions/dad-jokes.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+        uses: mshick/add-pr-comment@v2
+         with:
+          message:
+            script: |
+              const axios = require('axios');
+              const url = 'https://icanhazdadjoke.com/';
+              const config = {
+                headers: {
+                  'Accept': 'application/json'
+                }
+              };
+              axios.get(url, config)
+                .then(response => {
+                  console.log(response.data.joke);
+                  return response.data.joke;
+                })
+                .catch(error => {
+                  console.log(error);
+                });
