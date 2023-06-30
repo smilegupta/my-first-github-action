@@ -1,7 +1,7 @@
 const axios = require('axios');
-const { Octokit } = require('@octokit/rest');
+const { GitHub, context } = require('@actions/github');
 
-async function run() {
+async function postDadJoke() {
   try {
     // Fetch a random dad joke from the API
     const response = await axios.get('https://icanhazdadjoke.com/', {
@@ -11,16 +11,11 @@ async function run() {
     const joke = response.data.joke;
 
     // Post the dad joke as a comment on the pull request
-    const octokit = new Octokit({
-      auth: process.env.GITHUB_TOKEN,
-    });
-
-    const { owner, repo, pull_number } = context.issue;
+    const octokit = new GitHub(process.env.GITHUB_TOKEN);
 
     await octokit.rest.issues.createComment({
-      owner,
-      repo,
-      issue_number: pull_number,
+      ...context.repo,
+      issue_number: context.issue.number,
       body: `👨‍👧‍👦 **Dad Joke of the Day** 👨‍👧‍👦\n\n${joke}`,
     });
 
@@ -31,4 +26,4 @@ async function run() {
   }
 }
 
-run();
+postDadJoke();
