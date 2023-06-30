@@ -3,7 +3,7 @@ name: Dance Robot
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   dance-robot:
