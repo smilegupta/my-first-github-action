@@ -1,18 +1,36 @@
-const robot = `
-\\(•_•)/
-( •_•)>⌐■-■
-(⌐■_■)
+const robot1 = `
+   o O
+ /¯   ¯\\
+|       |
+ \\_   _/
+   | |
+   | |
+   | |
+   | |
+  /| |\\
+ / | | \\
+<__|_|__>
 `;
 
-const frames = robot.split('\n');
+const robot2 = `
+  \\o/
+   |
+  / \\
+`;
+
+const frames = [robot1, robot2];
 const totalFrames = frames.length;
-const delay = 500; // Delay between frames in milliseconds
+const delay = 100; // Delay between frames in milliseconds
 
 async function animate() {
-  for (let i = 0; i < totalFrames; i++) {
-    console.log(frames[i]);
-    await sleep(delay);
-    clearConsole();
+  const startTime = new Date().getTime();
+
+  while (new Date().getTime() - startTime < 300000) {
+    for (let i = 0; i < totalFrames; i++) {
+      console.log(frames[i]);
+      await sleep(delay);
+      clearConsole();
+    }
   }
 }
 
