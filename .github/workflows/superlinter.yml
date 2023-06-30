@@ -1,5 +1,3 @@
-// Creating a github workflow file to run the linter on every push
-
 name: Super-Linter
 
 on: push
