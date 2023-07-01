@@ -23,9 +23,8 @@ jobs:
 
       - name: Run Dad Jokes Action
         uses: actions/github-script@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const axios = require('axios');
             const url = 'https://icanhazdadjoke.com/';
@@ -41,4 +40,3 @@ jobs:
             repo: context.repo.repo,
             body: res.data.joke
             });
-
