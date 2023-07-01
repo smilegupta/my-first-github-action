@@ -23,6 +23,8 @@ jobs:
 
       - name: Run Dad Jokes Action
         uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
             const axios = require('axios');
