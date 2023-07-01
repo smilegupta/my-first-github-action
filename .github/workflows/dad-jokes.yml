@@ -7,6 +7,8 @@ on:
 jobs:
   dad-jokes:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,22 +22,21 @@ jobs:
         run: npm install axios
 
       - name: Run Dad Jokes Action
-        uses: mshick/add-pr-comment@v2
-         with:
-          message:
-            script: |
-              const axios = require('axios');
-              const url = 'https://icanhazdadjoke.com/';
-              const config = {
-                headers: {
-                  'Accept': 'application/json'
-                }
-              };
-              const res = await axios.get(url, config);
-              await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: response.data.joke
-              });
-
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const axios = require('axios');
+            const url = 'https://icanhazdadjoke.com/';
+            const config = {
+              headers: {
+                'Accept': 'application/json'
+              }
+            };
+            const res = await axios.get(url, config);
+            await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: res.data.joke
+            });
